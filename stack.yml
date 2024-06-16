@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  postgres_postgis:
+    image: postgis/postgis
+    container_name: postgres_postgis
+    restart: always
+    volumes:
+      - .:/db
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DATA: ${POSTGRES_DATA}
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+
+  adminer_container:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: always
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - 8070:80
+
+volumes:
+  postgres_db:
